@@ -12,9 +12,28 @@
 
 <title>board</title>
 <script>
+	//목록 
 	$(document).on('click', '#btnList', function(){
 		location.href = "${pageContext.request.contextPath}/board/getBoardList";
 	});
+	
+	//수정
+	$(document).on('click', '#btnUpdate',function() {
+		var url = "${pageContext.request.contextPath}/board/editForm";
+		url = url + "?bid="+${boardContent.bid};
+		url = url + "&mode=edit";
+		location.href = url;
+
+	});
+	
+	//삭제
+	$(document).on('click', '#btnDelete', function(){
+    var url = "${pageContext.request.contextPath}/board/deleteBoard";
+    url = url + "?bid=" + ${boardContent.bid};
+		location.href = url;
+	});
+
+	
 </script>
 </head>
 
