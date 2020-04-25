@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jys.common.Pagination;
+import com.jys.common.Search;
 import com.jys.web.board.dao.BoardDAO;
 import com.jys.web.board.model.BoardVO;
 
@@ -34,8 +35,8 @@ public class BoardDAOTest {
 
 	@Test @Ignore
 	public void testGetBoardList() throws Exception {
-		Pagination p = new Pagination();
-		List<BoardVO> boardList = boardDAO.getBoardList(p);
+		Search search = new Search();
+		List<BoardVO> boardList = boardDAO.getBoardList(search);
 		logger.info("\n Board List \n ");
 		if(boardList.size() > 0) {
 			for(BoardVO list : boardList) {

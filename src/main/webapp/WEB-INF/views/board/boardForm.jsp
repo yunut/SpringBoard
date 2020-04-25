@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/layout/header.jsp"%>
 <!-- from:form 태그르 사용하기위한 라이브러리 -->
 <%@ taglib prefix="form" uri ="http://www.springframework.org/tags/form" %>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
 
 <!DOCTYPE html>
 <html>
@@ -67,4 +67,6 @@
 		</div>
 	</article>
 </body>
+<script src="${pageContext.request.contextPath}/resources/common/js/ckeditor.js"></script>
 </html>
+

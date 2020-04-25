@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jys.common.Pagination;
+import com.jys.common.Search;
 import com.jys.web.board.model.BoardVO;
 import com.jys.web.board.service.BoardService;
 
+import com.jys.web.board.model.ReplyVO;
 
 
 @Controller
@@ -28,16 +30,31 @@ public class BoardController {
 	public String getBoardList(Model model
 			,@RequestParam(required = false, defaultValue = "1") int page
 			,@RequestParam(required = false, defaultValue = "1") int range
+			,@RequestParam(required = false, defaultValue = "title") String searchType
+			,@RequestParam(required = false) String keyword
+			,@ModelAttribute("search") Search search
 			) throws Exception {
 		
+		model.addAttribute("search", search);
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+
+	
+	
+		//전체 게시글 개수
+		int listCnt = boardService.getBoardListCnt(search);
+	    //Pagination 객체생성
+		//Pagination pagination = new Pagination();
+		//pagination.pageInfo(page, range, listCnt);
 		
-			//전체 게시글 개수
-			int listCnt = boardService.getBoardListCnt();
-		    //Pagination 객체생성
-			Pagination pagination = new Pagination();
-			pagination.pageInfo(page, range, listCnt);
-			model.addAttribute("pagination", pagination);
-			model.addAttribute("boardList", boardService.getBoardList(pagination));
+		//검색
+		search.pageInfo(page, range, listCnt);
+		
+		//페이징
+		model.addAttribute("pagination", search);
+		
+		//게시글 화면 출력
+		model.addAttribute("boardList", boardService.getBoardList(search));
 		return "board/index";
 	}
 	
@@ -65,6 +82,7 @@ public class BoardController {
 	@RequestMapping(value = "/getBoardContent", method = RequestMethod.GET)
 	public String getBoardContent(Model model, @RequestParam("bid") int bid) throws Exception {
 		model.addAttribute("boardContent", boardService.getBoardContent(bid));
+		model.addAttribute("replyVO", new ReplyVO());
 		return "board/boardContent";
 	}
 	

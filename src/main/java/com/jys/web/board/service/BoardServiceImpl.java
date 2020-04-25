@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jys.common.Pagination;
+import com.jys.common.Search;
 import com.jys.web.board.dao.BoardDAO;
 import com.jys.web.board.model.BoardVO;
+import com.jys.web.board.model.ReplyVO;
 
 
 
@@ -19,8 +21,8 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDAO boardDAO;
 
 	@Override
-	public List<BoardVO> getBoardList(Pagination pagination) throws Exception {
-		return boardDAO.getBoardList(pagination);
+	public List<BoardVO> getBoardList(Search search) throws Exception {
+		return boardDAO.getBoardList(search);
 	}
 	
 	@Override
@@ -47,9 +49,31 @@ public class BoardServiceImpl implements BoardService{
 	
 	//총 게시글 개수 확인
 	@Override
-	public int getBoardListCnt() throws Exception {
-		return boardDAO.getBoardListCnt();
+	public int getBoardListCnt(Search search) throws Exception {
+		return boardDAO.getBoardListCnt(search);
 	}
+	
+	// 댓글 리스트
+	@Override
+	public List<ReplyVO> getReplyList(int bid) throws Exception {
+		return boardDAO.getReplyList(bid);
+	}
+
+	@Override
+	public int saveReply(ReplyVO replyVO) throws Exception {
+		return boardDAO.saveReply(replyVO);
+	}
+
+	@Override
+	public int updateReply(ReplyVO replyVO) throws Exception {
+		return boardDAO.updateReply(replyVO);
+	}
+
+	@Override
+	public int deleteReply(int rid) throws Exception {
+		return boardDAO.deleteReply(rid);
+	}
+
 
 
 }
